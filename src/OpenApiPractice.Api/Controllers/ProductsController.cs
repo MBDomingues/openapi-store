@@ -13,16 +13,17 @@ public sealed class ProductsController(ProductService productService) : Controll
     [HttpPut("{id:guid}", Name = "UpdateProduct")]
     [ProducesResponseType<ProductResponse>(StatusCodes.Status200OK)]
     [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
-    public ActionResult<ProductResponse> Update(UpdateProductRequest request)
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    public ActionResult<ProductResponse> Update(Guid id, UpdateProductRequest request)
     {
-        var product = productService.Update(request.Id, request.Name, request.Price);
+        var product = productService.Update(id, request.Name, request.Price);
 
         if (product is null)
         {
             return NotFound(new ProblemDetails
             {
                 Title = "Produto não encontrado",
-                Detail = $"Não existe produto com o identificador '{request.Id}'.",
+                Detail = $"Não existe produto com o identificador '{id}'.",
                 Status = StatusCodes.Status404NotFound
             });
         }

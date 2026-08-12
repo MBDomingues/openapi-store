@@ -17,6 +17,33 @@ Content-Type: application/json
   "price": 349.90
 }
 
+### Atualizar produto corretamente - 200
+PUT {{host}}/api/products/11111111-1111-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "name": "Teclado mecânico alterado",
+  "price": 370.90
+}
+
+### Atualizar produto com body invalido - 400
+PUT {{host}}/api/products/11111111-1111-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 0
+}
+
+### Atualizar produto nao existente - 404
+PUT {{host}}/api/products/11111111-1112-1111-1111-111111111111
+Content-Type: application/json
+
+{
+  "name": "Teclado mecânico alterado",
+  "price": 370.90
+}
+
 ### Exercício: observe o Problem Details gerado pela validação
 POST {{host}}/api/products
 Content-Type: application/json

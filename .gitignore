@@ -480,3 +480,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Local execution configuration (Jarvis / VS Code Remote SSH)
+/.vscode/
+/scripts/dotnet.sh
+**/Properties/launchSettings.json
