@@ -11,9 +11,9 @@ namespace OpenApiPractice.Api.Controllers;
 public sealed class ProductsController(ProductService productService) : ControllerBase
 {
     [HttpPut("{id:guid}", Name = "UpdateProduct")]
-    [ProducesResponseType<ProductResponse>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ProductResponse>(StatusCodes.Status200OK, Description = "Produto atualizado com sucesso.")]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest, Description = "O corpo da requisição viola as regras de validação.")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, Description = "Não existe produto com o identificador informado.")]
     public ActionResult<ProductResponse> Update(Guid id, UpdateProductRequest request)
     {
         var product = productService.Update(id, request.Name, request.Price);
@@ -32,7 +32,7 @@ public sealed class ProductsController(ProductService productService) : Controll
     }
 
     [HttpGet(Name = "ListProducts")]
-    [ProducesResponseType<IReadOnlyCollection<ProductResponse>>(StatusCodes.Status200OK)]
+    [ProducesResponseType<IReadOnlyCollection<ProductResponse>>(StatusCodes.Status200OK, Description = "Lista de produtos ordenada por nome.")]
     public ActionResult<IReadOnlyCollection<ProductResponse>> GetAll()
     {
         var products = productService.GetAll()
@@ -43,8 +43,8 @@ public sealed class ProductsController(ProductService productService) : Controll
     }
 
     [HttpGet("{id:guid}", Name = "GetProductById")]
-    [ProducesResponseType<ProductResponse>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ProductResponse>(StatusCodes.Status200OK, Description = "Produto encontrado.")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, Description = "Não existe produto com o identificador informado.")]
     public ActionResult<ProductResponse> GetById(Guid id)
     {
         var product = productService.GetById(id);
@@ -63,8 +63,8 @@ public sealed class ProductsController(ProductService productService) : Controll
     }
 
     [HttpPost(Name = "CreateProduct")]
-    [ProducesResponseType<ProductResponse>(StatusCodes.Status201Created)]
-    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ProductResponse>(StatusCodes.Status201Created, Description = "Produto criado com sucesso.")]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest, Description = "O corpo da requisição viola as regras de validação.")]
     public ActionResult<ProductResponse> Create(CreateProductRequest request)
     {
         var product = productService.Create(request.Name, request.Price);

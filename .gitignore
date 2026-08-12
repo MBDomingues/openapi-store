@@ -485,3 +485,7 @@ $RECYCLE.BIN/
 /.vscode/
 /scripts/dotnet.sh
 **/Properties/launchSettings.json
+
+# Local learning history and Codex instructions (Mateus / Jarvis)
+/.learning/
+/AGENTS.md
