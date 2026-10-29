@@ -1,21 +1,23 @@
-# Contrato OpenAPI
+# OpenAPI Contract
 
-A aplicação usa abordagem **code-first** e publica um documento OpenAPI 3.1 durante a execução em `Development`.
+The application uses a **code-first** approach and publishes an OpenAPI 3.1 document while running in `Development`.
 
 - JSON: <http://localhost:5226/openapi/v1.json>
 - Scalar: <http://localhost:5226/scalar/v1>
 
-## Origem dos metadados
+## Metadata sources
 
-- Controllers, `HttpGet`, `HttpPost` e `HttpPut` definem paths e métodos.
-- Route constraints como `{id:guid}` descrevem parâmetros e formatos.
-- Assinaturas e DTOs descrevem request bodies e schemas.
-- DataAnnotations descrevem propriedades obrigatórias e limites.
-- `ProducesResponseType` descreve status codes e schemas de resposta.
-- O `Name` dos atributos de rota é usado como `operationId`.
+- Controllers, `HttpGet`, `HttpPost` and `HttpPut` define paths and methods.
+- Route constraints such as `{id:guid}` describe parameters and formats.
+- Signatures and DTOs describe request bodies and schemas.
+- DataAnnotations describe required properties and limits.
+- `ProducesResponseType` describes status codes and response schemas.
+- The `Name` of the route attributes is used as the `operationId`.
 
-`AddOpenApi` reúne esses metadados, `MapOpenApi` publica o documento e o Scalar apenas busca e apresenta esse documento. Alterar o arquivo `.http` não modifica o contrato.
+`AddOpenApi` gathers this metadata, `MapOpenApi` publishes the document and Scalar only fetches and displays that document. Changing the `.http` file does not modify the contract.
 
-## Fonte de verdade atual
+## Current source of truth
 
-Nesta versão, o código é a fonte de verdade. Um contrato manual `openapi.yaml` poderá ser adicionado posteriormente para comparar code-first e contract-first. Se os dois forem mantidos ao mesmo tempo, será necessário definir explicitamente qual é autoritativo e automatizar a detecção de divergências.
+In the running application, the code still generates `/openapi/v1.json`. During exercise 003, the manual [`openapi.yaml`](openapi.yaml) file is treated as the source of truth to practice contract-first and reveal differences the generator cannot infer.
+
+The observed comparison is in [`COMPARISON.md`](COMPARISON.md), and the step-by-step explanation is in [`EXERCISE_003_GUIDE.md`](EXERCISE_003_GUIDE.md). If both contracts are kept after the exercise, it will be necessary to choose a single authoritative document and automate divergence detection.
